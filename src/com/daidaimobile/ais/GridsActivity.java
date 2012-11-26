@@ -18,9 +18,9 @@ import com.nostra13.universalimageloader.core.assist.OnScrollSmartOptions;
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  */
-public class ImageGridActivity extends BaseActivity {
+public class GridsActivity extends BaseActivity {
 
-	String[] imageUrls;
+	static String[] imageUrls;
 
 	OnScrollSmartOptions smartOptions;
 
@@ -53,7 +53,7 @@ public class ImageGridActivity extends BaseActivity {
 	}
 
 	private void startImageGalleryActivity(int position) {
-		Intent intent = new Intent(this, ImagePagerActivity.class);
+		Intent intent = new Intent(this, PhotoActivity.class);
 		intent.putExtra(Extra.IMAGES, imageUrls);
 		intent.putExtra(Extra.IMAGE_POSITION, position);
 		startActivity(intent);

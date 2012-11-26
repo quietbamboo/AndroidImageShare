@@ -33,7 +33,7 @@ public class UILWidgetProvider extends AppWidgetProvider {
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 		// Initialize ImageLoader with configuration.
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context).threadPoolSize(3).threadPriority(Thread.NORM_PRIORITY - 2)
-				.memoryCacheSize(1500000) // 1.5 Mb
+				.memoryCacheSize(25000000) // 25 Mb
 				.denyCacheImageMultipleSizesInMemory().discCacheFileNameGenerator(new Md5FileNameGenerator()).enableLogging() // Not necessary in common
 				.build();
 		ImageLoader.getInstance().init(config);

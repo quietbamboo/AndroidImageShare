@@ -54,7 +54,7 @@ public class ImageListActivity extends BaseActivity {
 	}
 
 	private void startImageGalleryActivity(int position) {
-		Intent intent = new Intent(this, ImagePagerActivity.class);
+		Intent intent = new Intent(this, PhotoActivity.class);
 		intent.putExtra(Extra.IMAGES, imageUrls);
 		intent.putExtra(Extra.IMAGE_POSITION, position);
 		startActivity(intent);
