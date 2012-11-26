@@ -1,4 +1,6 @@
-package com.nostra13.example.universalimageloader;
+package com.daidaimobile.ais;
+
+import com.nostra13.example.universalimageloader.R;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
@@ -89,7 +91,7 @@ public final class Constants {
 	}
 
 	public static class Extra {
-		public static final String IMAGES = "com.nostra13.example.universalimageloader.IMAGES";
-		public static final String IMAGE_POSITION = "com.nostra13.example.universalimageloader.IMAGE_POSITION";
+		public static final String IMAGES = "com.daidaimobile.ais.IMAGES";
+		public static final String IMAGE_POSITION = "com.daidaimobile.ais.IMAGE_POSITION";
 	}
 }

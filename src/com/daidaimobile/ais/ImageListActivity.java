@@ -1,24 +1,25 @@
-package com.nostra13.example.universalimageloader;
-
+package com.daidaimobile.ais;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
-import com.nostra13.example.universalimageloader.Constants.Extra;
+import com.daidaimobile.ais.Constants.Extra;
+import com.nostra13.example.universalimageloader.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.OnScrollSmartOptions;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  */
-public class ImageGridActivity extends BaseActivity {
+public class ImageListActivity extends BaseActivity {
 
 	String[] imageUrls;
 
@@ -27,7 +28,7 @@ public class ImageGridActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ac_image_grid);
+		setContentView(R.layout.ac_image_list);
 
 		Bundle bundle = getIntent().getExtras();
 		imageUrls = bundle.getStringArray(Extra.IMAGES);
@@ -37,19 +38,20 @@ public class ImageGridActivity extends BaseActivity {
 			.showImageForEmptyUri(R.drawable.image_for_empty_url)
 			.cacheInMemory()
 			.cacheOnDisc()
-			.bitmapConfig(Bitmap.Config.RGB_565)
+			.displayer(new RoundedBitmapDisplayer(20))
 			.build();
 		smartOptions = new OnScrollSmartOptions(options);
 
-		GridView gridView = (GridView) findViewById(R.id.gridview);
-		gridView.setAdapter(new ImageAdapter());
-		gridView.setOnItemClickListener(new OnItemClickListener() {
+		ListView listView = (ListView) findViewById(android.R.id.list);
+		listView.setAdapter(new ItemAdapter());
+		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				startImageGalleryActivity(position);
 			}
 		});
-		gridView.setOnScrollListener(smartOptions);
+		
+		listView.setOnScrollListener(smartOptions);
 	}
 
 	private void startImageGalleryActivity(int position) {
@@ -59,7 +61,13 @@ public class ImageGridActivity extends BaseActivity {
 		startActivity(intent);
 	}
 
-	public class ImageAdapter extends BaseAdapter {
+	class ItemAdapter extends BaseAdapter {
+
+		private class ViewHolder {
+			public TextView text;
+			public ImageView image;
+		}
+
 		@Override
 		public int getCount() {
 			return imageUrls.length;
@@ -67,7 +75,7 @@ public class ImageGridActivity extends BaseActivity {
 
 		@Override
 		public Object getItem(int position) {
-			return null;
+			return position;
 		}
 
 		@Override
@@ -76,17 +84,23 @@ public class ImageGridActivity extends BaseActivity {
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			final ImageView imageView;
+		public View getView(final int position, View convertView, ViewGroup parent) {
+			View view = convertView;
+			final ViewHolder holder;
 			if (convertView == null) {
-				imageView = (ImageView) getLayoutInflater().inflate(R.layout.item_grid_image, parent, false);
-			} else {
-				imageView = (ImageView) convertView;
-			}
+				view = getLayoutInflater().inflate(R.layout.item_list_image, null);
+				holder = new ViewHolder();
+				holder.text = (TextView) view.findViewById(R.id.text);
+				holder.image = (ImageView) view.findViewById(R.id.image);
+				view.setTag(holder);
+			} else
+				holder = (ViewHolder) view.getTag();
 
-			imageLoader.displayImage(imageUrls[position], imageView, smartOptions.getOptions());
+			holder.text.setText("Item " + position);
 
-			return imageView;
+			imageLoader.displayImage(imageUrls[position], holder.image, smartOptions.getOptions());
+
+			return view;
 		}
 	}
 }

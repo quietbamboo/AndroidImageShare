@@ -1,8 +1,8 @@
-package com.nostra13.example.universalimageloader;
+package com.daidaimobile.ais;
 
 import android.app.Application;
 
-import com.nostra13.example.universalimageloader.downloader.ExtendedImageDownloader;
+import com.daidaimobile.ais.downloader.ExtendedImageDownloader;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;

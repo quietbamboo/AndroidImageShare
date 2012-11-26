@@ -1,4 +1,4 @@
-package com.nostra13.example.universalimageloader;
+package com.daidaimobile.ais;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -9,7 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
 
-import com.nostra13.example.universalimageloader.Constants.Extra;
+import com.daidaimobile.ais.Constants.Extra;
+import com.nostra13.example.universalimageloader.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 /**

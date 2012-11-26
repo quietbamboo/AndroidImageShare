@@ -1,4 +1,4 @@
-package com.nostra13.example.universalimageloader.downloader;
+package com.daidaimobile.ais.downloader;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

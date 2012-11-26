@@ -1,6 +1,6 @@
-package com.nostra13.example.universalimageloader.widget;
+package com.daidaimobile.ais.widget;
 
-import static com.nostra13.example.universalimageloader.Constants.IMAGES;
+import static com.daidaimobile.ais.Constants.IMAGES;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;

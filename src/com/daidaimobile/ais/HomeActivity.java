@@ -1,11 +1,12 @@
-package com.nostra13.example.universalimageloader;
+package com.daidaimobile.ais;
 
-import static com.nostra13.example.universalimageloader.Constants.IMAGES;
+import static com.daidaimobile.ais.Constants.IMAGES;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.nostra13.example.universalimageloader.Constants.Extra;
+import com.daidaimobile.ais.Constants.Extra;
+import com.nostra13.example.universalimageloader.R;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)

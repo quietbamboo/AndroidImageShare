@@ -1,4 +1,4 @@
-package com.nostra13.example.universalimageloader;
+package com.daidaimobile.ais;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -10,7 +10,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.nostra13.example.universalimageloader.Constants.Extra;
+import com.daidaimobile.ais.Constants.Extra;
+import com.nostra13.example.universalimageloader.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
