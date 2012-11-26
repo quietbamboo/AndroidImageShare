@@ -11,7 +11,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.daidaimobile.ais.Constants.Extra;
-import com.nostra13.example.universalimageloader.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.OnScrollSmartOptions;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.nostra13.example.universalimageloader.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
