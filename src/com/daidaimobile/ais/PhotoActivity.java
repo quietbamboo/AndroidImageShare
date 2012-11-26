@@ -1,4 +1,5 @@
 package com.daidaimobile.ais;
+
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -7,10 +8,14 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.daidaimobile.ais.Constants.Extra;
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -23,6 +28,7 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 public class PhotoActivity extends BaseActivity {
 
 	DisplayImageOptions options;
+	private AdView adView;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,16 +39,23 @@ public class PhotoActivity extends BaseActivity {
 		int pagerPosition = bundle.getInt(Extra.IMAGE_POSITION, 0);
 
 		options = new DisplayImageOptions.Builder()
-			.showImageForEmptyUri(R.drawable.image_for_empty_url)
-			.cacheOnDisc()
-			.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-			.bitmapConfig(Bitmap.Config.RGB_565)
-			.displayer(new FadeInBitmapDisplayer(300))
-			.build();
+		.showImageForEmptyUri(R.drawable.image_for_empty_url)
+		.cacheOnDisc()
+		.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+		.bitmapConfig(Bitmap.Config.RGB_565)
+		.displayer(new FadeInBitmapDisplayer(300))
+		.build();
 
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
 		pager.setAdapter(new ImagePagerAdapter(imageUrls));
 		pager.setCurrentItem(pagerPosition);
+
+		// Admob
+		LinearLayout layout = (LinearLayout) findViewById(R.id.photo);
+		adView = new AdView(this, AdSize.BANNER, Def.ADMOB_ID);
+		layout.addView(adView);
+		adView.loadAd(new AdRequest());
+
 	}
 
 	private class ImagePagerAdapter extends PagerAdapter {
@@ -86,15 +99,15 @@ public class PhotoActivity extends BaseActivity {
 				public void onLoadingFailed(FailReason failReason) {
 					String message = null;
 					switch (failReason) {
-						case IO_ERROR:
-							message = "Input/Output error";
-							break;
-						case OUT_OF_MEMORY:
-							message = "Out Of Memory error";
-							break;
-						case UNKNOWN:
-							message = "Unknown error";
-							break;
+					case IO_ERROR:
+						message = "Input/Output error";
+						break;
+					case OUT_OF_MEMORY:
+						message = "Out Of Memory error";
+						break;
+					case UNKNOWN:
+						message = "Unknown error";
+						break;
 					}
 					Toast.makeText(PhotoActivity.this, message, Toast.LENGTH_SHORT).show();
 
@@ -109,6 +122,7 @@ public class PhotoActivity extends BaseActivity {
 			});
 
 			((ViewPager) view).addView(imageLayout, 0);
+
 			return imageLayout;
 		}
 
@@ -129,5 +143,6 @@ public class PhotoActivity extends BaseActivity {
 		@Override
 		public void startUpdate(View container) {
 		}
+
 	}
 }
