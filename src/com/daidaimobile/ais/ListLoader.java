@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ListLoader extends Thread {
+public class ListLoader {
 
 	public static final String RECENT_LIKE_URL = "http://iphone.dotaart.com/asian/new/list.php?tag=recent.like&prefix=hjx";
 	public static final String RECENT_URL = "http://iphone.dotaart.com/asian/new/list.php?tag=all&prefix=hjx";
@@ -30,19 +30,16 @@ public class ListLoader extends Thread {
 	public static final int GROUPID_VIRAL_DAY = 4;
 	public static final int GROUPID_VIRAL_WEK = 5;
 	
+	public static final int MAX_LEN = 666;
+	
 	public static final String SEPARATOR_MAIN = "_-_-_";
 	public static final String SEPARATOR_SUB = "-----";
 	
-	public String listUrl;
-	public String[] urls;
-	public String[] descriptions;
+	public static String[] urls;
+	public static String[] descriptions;
 	
-	public ListLoader(String url) {
-		this.listUrl = url;
-	}
-
-	@Override
-	public void run() {
+	
+	public static void start(String listUrl) {
 		try {
 			URL url = new URL(listUrl);
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -52,26 +49,25 @@ public class ListLoader extends Thread {
 		}
 	}
 
-	private void readStream(InputStream in) {
+	private static void readStream(InputStream in) {
 		BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new InputStreamReader(in));
 			String line = "";
 			StringBuilder sb = new StringBuilder();
 			while ((line = reader.readLine()) != null) {
-				sb.append(line);
+				sb.append(line + "\n");
 			}
 			
 			String[] items = sb.toString().split(SEPARATOR_MAIN);
-			urls = new String[items.length];
-			descriptions = new String[items.length]; 
-			for (int i = 0 ; i < items.length ; i++) {
+			int len = Math.min(MAX_LEN, items.length);
+			urls = new String[len];
+			descriptions = new String[len]; 
+			for (int i = 0 ; i < len ; i++) {
 				String[] parts = items[i].split(SEPARATOR_SUB);
 				urls[i] = parts[0].replaceFirst("upload", "thumbnail");
-				if (parts.length == 2) {
+				if (parts.length == 2)
 					descriptions[i] = parts[1];
-					System.out.println(descriptions[i]);
-				}
 				else
 					descriptions[i] = "";
 			}

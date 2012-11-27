@@ -39,16 +39,10 @@ public class HomeActivity extends BaseActivity {
 
 
 	public void openGridView(String url) {
-		ListLoader ll = new ListLoader(url);
-		ll.start();
-		try {
-			ll.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		ListLoader.start(url);
 		Intent intent = new Intent(this, GridsActivity.class);
-		intent.putExtra(Extra.URLS, ll.urls);
-		intent.putExtra(Extra.DESCRIPTIONS, ll.descriptions);
+		intent.putExtra(Extra.URLS, ListLoader.urls);
+		intent.putExtra(Extra.DESCRIPTIONS, ListLoader.descriptions);
 		startActivity(intent);
 	}
 	
