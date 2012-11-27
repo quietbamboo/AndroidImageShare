@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/item_clear_memory_cache"
-        android:title="@string/menu_item_clear_memory_cache"/>
+        android:id="@+id/item_clear_cache"
+        android:title="@string/menu_item_clear_cache"/>
 
     <item
-        android:id="@+id/item_clear_disc_cache"
-        android:title="@string/menu_item_clear_disc_cache"/>
-
+        android:id="@+id/item_rate_us"
+        android:title="@string/menu_item_rate_us"/>
+    
 </menu>

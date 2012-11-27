@@ -17,6 +17,12 @@ import java.net.URL;
 public class ListLoader extends Thread {
 
 	public static final String RECENT_LIKE_URL = "http://iphone.dotaart.com/asian/new/list.php?tag=recent.like&prefix=hjx";
+	public static final String RECENT_URL = "http://iphone.dotaart.com/asian/new/list.php?tag=recent&prefix=hjx";
+	public static final String TOP_URL = "http://iphone.dotaart.com/asian/new/list.php?tag=top&prefix=hjx";
+	public static final String VIRAL_HOUR_URL = "http://iphone.dotaart.com/asian/new/list.php?tag=viral.hour&prefix=hjx";
+	public static final String VIRAL_DAY_URL = "http://iphone.dotaart.com/asian/new/list.php?tag=viral.day&prefix=hjx";
+	public static final String VIRAL_WEEK_URL = "http://iphone.dotaart.com/asian/new/list.php?tag=viral.week&prefix=hjx";
+	
 	public static final String SEPARATOR_MAIN = "_-_-_";
 	public static final String SEPARATOR_SUB = "-----";
 	

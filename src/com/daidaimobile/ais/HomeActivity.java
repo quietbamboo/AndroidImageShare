@@ -16,12 +16,12 @@ import com.google.ads.AdView;
 public class HomeActivity extends BaseActivity {
 
 	private AdView adView;
-	public ListLoader ll; 
+	public ListLoader ll_recent_like; 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		ll = new ListLoader(ListLoader.RECENT_LIKE_URL);
-		ll.start();
+		ll_recent_like = new ListLoader(ListLoader.RECENT_LIKE_URL);
+		ll_recent_like.start();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_home);
 
@@ -35,13 +35,13 @@ public class HomeActivity extends BaseActivity {
 
 	public void onImageGridClick(View view) {
 		try {
-			ll.join();
+			ll_recent_like.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
 		Intent intent = new Intent(this, GridsActivity.class);
-		intent.putExtra(Extra.IMAGES, ll.urls);
+		intent.putExtra(Extra.IMAGES, ll_recent_like.urls);
 		startActivity(intent);
 	}
 

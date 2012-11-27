@@ -1,9 +1,12 @@
 ﻿package com.daidaimobile.ais;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -25,11 +28,17 @@ public abstract class BaseActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.item_clear_memory_cache:
+			case R.id.item_clear_cache:
 				imageLoader.clearMemoryCache();
-				return true;
-			case R.id.item_clear_disc_cache:
 				imageLoader.clearDiscCache();
+				Toast toast = Toast.makeText(getApplicationContext(), 
+						"Your device now has more free space", Toast.LENGTH_SHORT);
+				toast.show();
+				return true;
+			case R.id.item_rate_us:
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, 
+						Uri.parse("https://play.google.com/store/apps/details?id=com.daidaimobile.ais"));
+				startActivity(browserIntent);
 				return true;
 			default:
 				return false;
