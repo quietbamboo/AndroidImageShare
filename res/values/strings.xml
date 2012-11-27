@@ -3,18 +3,15 @@
 
     <!-- Activity titles -->
     <string name="app_name">Asian Hots Pro</string>
-    <string name="ac_name_image_list">Image List Example</string>
-    <string name="ac_name_image_grid">Image Grid Example</string>
-    <string name="ac_name_image_pager">Most Recent List</string>
-    <string name="ac_name_image_gallery">Image Gallery Example</string>
     <!-- Labels -->
-    <string name="label_activity_examples">Activity Examples</string>
     <string name="menu_item_clear_cache">Clear Cache</string>
     <string name="menu_item_rate_us">Rate Us</string>
-    <string name="button_image_list">Image List</string>
-    <string name="button_image_grid">Most Recent Like</string>
-    <string name="button_image_pager">Image Pager</string>
-    <string name="button_image_gallery">Image Gallery</string>
+    <string name="group_recent_like">Most Recent Like</string>
+    <string name="group_recent">Most Recent Upload</string>
+    <string name="group_top">Top Rated</string>
+    <string name="group_viral_hour">Viral Last Hour</string>
+    <string name="group_viral_day">Viral Last Day</string>
+    <string name="group_viral_week">Viral Last Week</string>
     <!-- Content descriptions -->
     <string name="descr_image">Image</string>
 

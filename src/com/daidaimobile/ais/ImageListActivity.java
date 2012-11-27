@@ -30,7 +30,7 @@ public class ImageListActivity extends BaseActivity {
 		setContentView(R.layout.ac_image_list);
 
 		Bundle bundle = getIntent().getExtras();
-		imageUrls = bundle.getStringArray(Extra.IMAGES);
+		imageUrls = bundle.getStringArray(Extra.URLS);
 
 		DisplayImageOptions options = new DisplayImageOptions.Builder()
 			.showStubImage(R.drawable.stub_image)
@@ -55,7 +55,7 @@ public class ImageListActivity extends BaseActivity {
 
 	private void startImageGalleryActivity(int position) {
 		Intent intent = new Intent(this, PhotoActivity.class);
-		intent.putExtra(Extra.IMAGES, imageUrls);
+		intent.putExtra(Extra.URLS, imageUrls);
 		intent.putExtra(Extra.IMAGE_POSITION, position);
 		startActivity(intent);
 	}

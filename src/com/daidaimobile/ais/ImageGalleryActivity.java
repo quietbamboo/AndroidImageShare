@@ -24,7 +24,7 @@ public class ImageGalleryActivity extends BaseActivity {
 		setContentView(R.layout.ac_image_gallery);
 
 		Bundle bundle = getIntent().getExtras();
-		String[] imageUrls = bundle.getStringArray(Extra.IMAGES);
+		String[] imageUrls = bundle.getStringArray(Extra.URLS);
 		int galleryPosition = bundle.getInt(Extra.IMAGE_POSITION, 0);
 
 		options = new DisplayImageOptions.Builder()

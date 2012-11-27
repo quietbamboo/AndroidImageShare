@@ -16,12 +16,17 @@ import com.google.ads.AdView;
 public class HomeActivity extends BaseActivity {
 
 	private AdView adView;
-	public ListLoader ll_recent_like; 
+	
+	public ListLoader ll_recent_like;
+	public ListLoader ll_recent;
+	public ListLoader ll_top; 
+	public ListLoader ll_viral_hour;
+	public ListLoader ll_viral_day;   
+	public ListLoader ll_viral_week; 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		ll_recent_like = new ListLoader(ListLoader.RECENT_LIKE_URL);
-		ll_recent_like.start();
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_home);
 
@@ -33,33 +38,59 @@ public class HomeActivity extends BaseActivity {
 	}
 
 
-	public void onImageGridClick(View view) {
+	public void openGridView(String url) {
+		ListLoader ll = new ListLoader(url);
+		ll.start();
 		try {
-			ll_recent_like.join();
+			ll.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
 		Intent intent = new Intent(this, GridsActivity.class);
-		intent.putExtra(Extra.IMAGES, ll_recent_like.urls);
+		intent.putExtra(Extra.URLS, ll.urls);
+		intent.putExtra(Extra.DESCRIPTIONS, ll.descriptions);
 		startActivity(intent);
+	}
+	
+	public void onRecentLikeClick(View view) {
+		openGridView(ListLoader.RECENT_LIKE_URL);
+	}
+	
+	public void onRecentClick(View view) {
+		openGridView(ListLoader.RECENT_URL);
+	}
+	
+	public void onTopClick(View view) {
+		openGridView(ListLoader.TOP_URL);
+	}
+	
+	public void onViralHourClick(View view) {
+		openGridView(ListLoader.VIRAL_HOUR_URL);
+	}
+	
+	public void onViralDayClick(View view) {
+		openGridView(ListLoader.VIRAL_DAY_URL);
+	}
+	
+	public void onViralWeekClick(View view) {
+		openGridView(ListLoader.VIRAL_WEEK_URL);
 	}
 
 	/*public void onImageListClick(View view) {
 		Intent intent = new Intent(this, ImageListActivity.class);
-		intent.putExtra(Extra.IMAGES, Constants.IMAGES);
+		intent.putExtra(Extra.URLS, Constants.IMAGES);
 		startActivity(intent);
 	}
 
 	public void onImagePagerClick(View view) {
 		Intent intent = new Intent(this, PhotoActivity.class);
-		intent.putExtra(Extra.IMAGES, Constants.IMAGES);
+		intent.putExtra(Extra.URLS, Constants.IMAGES);
 		startActivity(intent);
 	}
 
 	public void onImageGalleryClick(View view) {
 		Intent intent = new Intent(this, ImageGalleryActivity.class);
-		intent.putExtra(Extra.IMAGES, Constants.IMAGES);
+		intent.putExtra(Extra.URLS, Constants.IMAGES);
 		startActivity(intent);
 	}*/
 }

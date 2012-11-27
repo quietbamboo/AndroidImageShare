@@ -35,14 +35,15 @@
         
         <activity
             android:name=".ImageListActivity"
-            android:label="@string/ac_name_image_list" />
+            android:label="@string/app_name" />
         
         <activity
             android:name=".PhotoActivity"
-            android:label="@string/ac_name_image_pager" />
+            android:label="@string/app_name" />
+        
         <activity
             android:name=".ImageGalleryActivity"
-            android:label="@string/ac_name_image_gallery" />
+            android:label="@string/app_name" />
 
         <!-- Widget -->
         <receiver android:name=".widget.UILWidgetProvider" >

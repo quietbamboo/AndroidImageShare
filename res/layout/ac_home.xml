@@ -4,21 +4,56 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="20dip"
-        android:paddingLeft="10dip"
+        android:paddingLeft="8dip"
         android:paddingTop="20dip"
         android:text="@string/app_name"
         android:textSize="24dip" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dip"
+        android:onClick="onRecentLikeClick"
+        android:text="@string/group_recent_like" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dip"
-        android:onClick="onImageGridClick"
-        android:text="@string/button_image_grid" />
+        android:layout_margin="8dip"
+        android:onClick="onRecentClick"
+        android:text="@string/group_recent" />
+    
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dip"
+        android:onClick="onTopClick"
+        android:text="@string/group_top" />
+    
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dip"
+        android:onClick="onViralHourClick"
+        android:text="@string/group_viral_hour" />
+    
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dip"
+        android:onClick="onViralDayClick"
+        android:text="@string/group_viral_day" />
+    
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dip"
+        android:onClick="onViralWeekClick"
+        android:text="@string/group_viral_week" />
 
 </LinearLayout>

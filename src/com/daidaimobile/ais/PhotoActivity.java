@@ -35,7 +35,8 @@ public class PhotoActivity extends BaseActivity {
 		setContentView(R.layout.ac_image_pager);
 
 		Bundle bundle = getIntent().getExtras();
-		String[] imageUrls = bundle.getStringArray(Extra.IMAGES);
+		String[] urls = bundle.getStringArray(Extra.URLS);
+		String[] descriptions = bundle.getStringArray(Extra.DESCRIPTIONS);
 		int pagerPosition = bundle.getInt(Extra.IMAGE_POSITION, 0);
 
 		options = new DisplayImageOptions.Builder()
@@ -47,7 +48,7 @@ public class PhotoActivity extends BaseActivity {
 		.build();
 
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
-		pager.setAdapter(new ImagePagerAdapter(imageUrls));
+		pager.setAdapter(new ImagePagerAdapter(urls, descriptions));
 		pager.setCurrentItem(pagerPosition);
 
 		// Admob
@@ -57,14 +58,60 @@ public class PhotoActivity extends BaseActivity {
 		adView.loadAd(new AdRequest());
 
 	}
+	
+	private class HjxImageLoadingListener extends SimpleImageLoadingListener {
+		
+		private ProgressBar spinner;
+		private ImageView imageView;
+		private String desc;
+		
+		public HjxImageLoadingListener(ProgressBar spinner, ImageView imageView, String desc) {
+			this.spinner = spinner;
+			this.imageView = imageView;
+			this.desc = desc;
+		}
+		
+		@Override
+		public void onLoadingStarted() {
+			spinner.setVisibility(View.VISIBLE);
+		}
+
+		@Override
+		public void onLoadingFailed(FailReason failReason) {
+			String message = null;
+			switch (failReason) {
+			case IO_ERROR:
+				message = "Input/Output error";
+				break;
+			case OUT_OF_MEMORY:
+				message = "Out Of Memory error";
+				break;
+			case UNKNOWN:
+				message = "Unknown error";
+				break;
+			}
+			Toast.makeText(PhotoActivity.this, message, Toast.LENGTH_SHORT).show();
+			spinner.setVisibility(View.GONE);
+			imageView.setImageResource(android.R.drawable.ic_delete);
+		}
+
+		@Override
+		public void onLoadingComplete(Bitmap loadedImage) {
+			spinner.setVisibility(View.GONE);
+			//show descriptions here
+			Toast.makeText(PhotoActivity.this, desc, Toast.LENGTH_LONG).show();
+		}
+	}
 
 	private class ImagePagerAdapter extends PagerAdapter {
 
-		private String[] images;
+		private String[] urls;
+		private String[] descriptions;
 		private LayoutInflater inflater;
 
-		ImagePagerAdapter(String[] images) {
-			this.images = images;
+		ImagePagerAdapter(String[] urls, String[] descriptions) {
+			this.urls = urls;
+			this.descriptions = descriptions;
 			inflater = getLayoutInflater();
 		}
 
@@ -79,7 +126,7 @@ public class PhotoActivity extends BaseActivity {
 
 		@Override
 		public int getCount() {
-			return images.length;
+			return urls.length;
 		}
 
 		@Override
@@ -88,39 +135,9 @@ public class PhotoActivity extends BaseActivity {
 			final ImageView imageView = (ImageView) imageLayout.findViewById(R.id.image);
 			final ProgressBar spinner = (ProgressBar) imageLayout.findViewById(R.id.loading);
 
-			imageLoader.displayImage(images[position].replaceFirst("thumbnail", "upload"),
-					imageView, options, new SimpleImageLoadingListener() {
-				@Override
-				public void onLoadingStarted() {
-					spinner.setVisibility(View.VISIBLE);
-				}
-
-				@Override
-				public void onLoadingFailed(FailReason failReason) {
-					String message = null;
-					switch (failReason) {
-					case IO_ERROR:
-						message = "Input/Output error";
-						break;
-					case OUT_OF_MEMORY:
-						message = "Out Of Memory error";
-						break;
-					case UNKNOWN:
-						message = "Unknown error";
-						break;
-					}
-					Toast.makeText(PhotoActivity.this, message, Toast.LENGTH_SHORT).show();
-
-					spinner.setVisibility(View.GONE);
-					imageView.setImageResource(android.R.drawable.ic_delete);
-				}
-
-				@Override
-				public void onLoadingComplete(Bitmap loadedImage) {
-					spinner.setVisibility(View.GONE);
-				}
-			});
-
+			imageLoader.displayImage(urls[position].replaceFirst("thumbnail", "upload"),
+					imageView, options, 
+					new HjxImageLoadingListener(spinner, imageView, descriptions[position]));
 			((ViewPager) view).addView(imageLayout, 0);
 
 			return imageLayout;

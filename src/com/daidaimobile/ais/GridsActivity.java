@@ -20,7 +20,8 @@ import com.nostra13.universalimageloader.core.assist.OnScrollSmartOptions;
  */
 public class GridsActivity extends BaseActivity {
 
-	static String[] imageUrls;
+	static String[] urls;
+	static String[] descriptions;
 
 	OnScrollSmartOptions smartOptions;
 
@@ -30,7 +31,8 @@ public class GridsActivity extends BaseActivity {
 		setContentView(R.layout.ac_image_grid);
 
 		Bundle bundle = getIntent().getExtras();
-		imageUrls = bundle.getStringArray(Extra.IMAGES);
+		urls = bundle.getStringArray(Extra.URLS);
+		descriptions = bundle.getStringArray(Extra.DESCRIPTIONS);
 
 		DisplayImageOptions options = new DisplayImageOptions.Builder()
 			.showStubImage(R.drawable.stub_image)
@@ -54,7 +56,8 @@ public class GridsActivity extends BaseActivity {
 
 	private void startImageGalleryActivity(int position) {
 		Intent intent = new Intent(this, PhotoActivity.class);
-		intent.putExtra(Extra.IMAGES, imageUrls);
+		intent.putExtra(Extra.URLS, urls);
+		intent.putExtra(Extra.DESCRIPTIONS, descriptions);
 		intent.putExtra(Extra.IMAGE_POSITION, position);
 		startActivity(intent);
 	}
@@ -62,7 +65,7 @@ public class GridsActivity extends BaseActivity {
 	public class ImageAdapter extends BaseAdapter {
 		@Override
 		public int getCount() {
-			return imageUrls.length;
+			return urls.length;
 		}
 
 		@Override
@@ -84,7 +87,7 @@ public class GridsActivity extends BaseActivity {
 				imageView = (ImageView) convertView;
 			}
 
-			imageLoader.displayImage(imageUrls[position], imageView, smartOptions.getOptions());
+			imageLoader.displayImage(urls[position], imageView, smartOptions.getOptions());
 
 			return imageView;
 		}
