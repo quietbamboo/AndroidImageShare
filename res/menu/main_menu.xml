@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
     <item
         android:id="@+id/item_clear_cache"
+        android:background="@layout/header_gradient"
         android:title="@string/menu_item_clear_cache"/>
-
     <item
         android:id="@+id/item_rate_us"
         android:title="@string/menu_item_rate_us"/>
-    
+    <item
+        android:id="@+id/item_twitter"
+        android:title="@string/menu_item_twitter"/>
 </menu>

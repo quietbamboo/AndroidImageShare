@@ -6,6 +6,7 @@
     <!-- Labels -->
     <string name="menu_item_clear_cache">Clear Cache</string>
     <string name="menu_item_rate_us">Rate Us</string>
+    <string name="menu_item_twitter">Follow us on Twitter</string>
     <string name="group_recent_like">Most Recent Like</string>
     <string name="group_recent">Most Recent Upload</string>
     <string name="group_top">Top Rated</string>

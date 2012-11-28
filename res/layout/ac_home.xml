@@ -1,59 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/home"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="20dip"
-        android:paddingLeft="8dip"
-        android:paddingTop="20dip"
-        android:text="@string/app_name"
-        android:textSize="24dip" />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dip"
-        android:onClick="onRecentLikeClick"
-        android:text="@string/group_recent_like" />
+    android:fillViewport="true" >
 
-    <Button
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dip"
-        android:onClick="onRecentClick"
-        android:text="@string/group_recent" />
-    
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dip"
-        android:onClick="onTopClick"
-        android:text="@string/group_top" />
-    
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dip"
-        android:onClick="onViralHourClick"
-        android:text="@string/group_viral_hour" />
-    
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dip"
-        android:onClick="onViralDayClick"
-        android:text="@string/group_viral_day" />
-    
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dip"
-        android:onClick="onViralWeekClick"
-        android:text="@string/group_viral_week" />
+        android:background="#ffffff" >
 
-</LinearLayout>
+        <!-- Header  Starts -->
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@layout/header_gradient"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip" >
+
+            <!-- Logo Start -->
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:src="@drawable/app_icon" />
+            <!-- Logo Ends -->
+        </LinearLayout>
+        <!-- Header Ends -->
+        <!-- Footer Start -->
+
+        <LinearLayout
+            android:id="@+id/footer"
+            android:layout_width="fill_parent"
+            android:layout_height="135dip"
+            android:layout_alignParentBottom="true"
+            android:background="@layout/footer_repeat" >
+        </LinearLayout>
+        <!-- Footer Ends -->
+
+        <!-- Login Form -->
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header"
+            android:orientation="vertical"
+            android:padding="8dip" >
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dip"
+                android:onClick="onRecentLikeClick"
+                android:text="@string/group_recent_like" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dip"
+                android:onClick="onRecentClick"
+                android:text="@string/group_recent" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dip"
+                android:onClick="onTopClick"
+                android:text="@string/group_top" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dip"
+                android:onClick="onViralHourClick"
+                android:text="@string/group_viral_hour" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dip"
+                android:onClick="onViralDayClick"
+                android:text="@string/group_viral_day" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dip"
+                android:onClick="onViralWeekClick"
+                android:text="@string/group_viral_week" />
+        </LinearLayout>
+        <!-- Login Form Ends -->
+    </RelativeLayout>
+
+</ScrollView>

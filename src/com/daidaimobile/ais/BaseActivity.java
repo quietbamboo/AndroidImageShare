@@ -40,6 +40,11 @@ public abstract class BaseActivity extends Activity {
 						Uri.parse("https://play.google.com/store/apps/details?id=com.daidaimobile.ais"));
 				startActivity(browserIntent);
 				return true;
+			case R.id.item_twitter:
+				Intent twitterIntent = new Intent(Intent.ACTION_VIEW, 
+						Uri.parse("https://twitter.com/AsianHots"));
+				startActivity(twitterIntent);
+				return true;
 			default:
 				return false;
 		}

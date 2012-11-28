@@ -12,6 +12,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.daidaimobile.ais.Constants.Extra;
+import com.daidaimobile.ais.photo.PhotoActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.OnScrollSmartOptions;
 
