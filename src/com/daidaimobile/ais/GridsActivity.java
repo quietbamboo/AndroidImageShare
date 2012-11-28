@@ -10,9 +10,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.daidaimobile.ais.Constants.Extra;
 import com.daidaimobile.ais.photo.PhotoActivity;
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.OnScrollSmartOptions;
 
@@ -21,6 +25,8 @@ import com.nostra13.universalimageloader.core.assist.OnScrollSmartOptions;
  */
 public class GridsActivity extends BaseActivity {
 
+
+	private AdView adView;
 	static String[] urls;
 	static String[] descriptions;
 
@@ -53,6 +59,12 @@ public class GridsActivity extends BaseActivity {
 			}
 		});
 		gridView.setOnScrollListener(smartOptions);
+		
+		// Admob
+		adView = new AdView(this, AdSize.BANNER, Def.ADMOB_ID);
+		LinearLayout layout = (LinearLayout)findViewById(R.id.grid);
+		layout.addView(adView);
+		adView.loadAd(new AdRequest());
 	}
 
 	private void startImageGalleryActivity(int position) {
