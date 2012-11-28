@@ -1,8 +1,12 @@
 package com.daidaimobile.ais.photo;
 
+import java.io.IOException;
+import java.util.Date;
+
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -33,22 +37,15 @@ public class PhotoActivity extends BaseActivity {
 
 	DisplayImageOptions options;
 	private AdView adView;
-	private int currentPosition;
 	private QuickAction quickAction;
-	
+	private String[] urls;
+	private String[] descriptions;
+	private int currentPosition;
+	private ImageView currentImageView;
 
 	private class MyPageChangeListener extends ViewPager.SimpleOnPageChangeListener {
-		private String[] descriptions;
-
-		public MyPageChangeListener(String[] descriptions) {
-			this.descriptions = descriptions;
-		}
-
 		@Override
 		public void onPageSelected(int position) {
-			//show descriptions here
-			//haven't sort out the description problem
-			//Toast.makeText(PhotoActivity.this, descriptions[position], Toast.LENGTH_LONG).show();
 			currentPosition = position;
 		}
 	}
@@ -58,8 +55,8 @@ public class PhotoActivity extends BaseActivity {
 		setContentView(R.layout.ac_image_pager);
 
 		Bundle bundle = getIntent().getExtras();
-		String[] urls = bundle.getStringArray(Extra.URLS);
-		String[] descriptions = bundle.getStringArray(Extra.DESCRIPTIONS);
+		urls = bundle.getStringArray(Extra.URLS);
+		descriptions = bundle.getStringArray(Extra.DESCRIPTIONS);
 		int pagerPosition = bundle.getInt(Extra.IMAGE_POSITION, 0);
 		currentPosition = pagerPosition;
 
@@ -73,7 +70,7 @@ public class PhotoActivity extends BaseActivity {
 
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
 		pager.setAdapter(new ImagePagerAdapter(urls));
-		pager.setOnPageChangeListener(new MyPageChangeListener(descriptions));
+		pager.setOnPageChangeListener(new MyPageChangeListener());
 		pager.setCurrentItem(pagerPosition);
 		//Toast.makeText(PhotoActivity.this, descriptions[pagerPosition], Toast.LENGTH_LONG).show();
 
@@ -82,32 +79,48 @@ public class PhotoActivity extends BaseActivity {
 		adView = new AdView(this, AdSize.BANNER, Def.ADMOB_ID);
 		layout.addView(adView);
 		adView.loadAd(new AdRequest());
-		
+
 
 		ActionItem bgAction = new ActionItem();
-		bgAction.setTitle("Set background");
+		bgAction.setTitle("Set Wallpaper");
 		bgAction.setIcon(getResources().getDrawable(R.drawable.ic_bg));
-		
+
 		ActionItem downAction = new ActionItem();
 		downAction.setTitle("Download");
 		downAction.setIcon(getResources().getDrawable(R.drawable.ic_down));
-		
+
+		ActionItem moreAction = new ActionItem();
+		moreAction.setTitle("Details");
+		moreAction.setIcon(getResources().getDrawable(R.drawable.ic_more));
+
 		quickAction = new QuickAction(this);
-		
 		quickAction.addActionItem(bgAction);
 		quickAction.addActionItem(downAction);
-		
+		quickAction.addActionItem(moreAction);
+
+
 		//setup the action item click listener
 		quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {			
 			@Override
 			public void onItemClick(int pos) {
-				if (pos == 0) { //Add item selected
-					Toast.makeText(PhotoActivity.this, "Add item selected", Toast.LENGTH_SHORT).show();
-				} else if (pos == 1) { //Accept item selected
-					Toast.makeText(PhotoActivity.this, "Accept item selected", Toast.LENGTH_SHORT).show();
-				} else if (pos == 2) { //Upload item selected
-					Toast.makeText(PhotoActivity.this, "Upload items selected", Toast.LENGTH_SHORT).show();
-				}	
+				currentImageView.setDrawingCacheEnabled(true);
+				if (pos == 0) {
+					//set background
+					try {
+						getApplicationContext().setWallpaper(currentImageView.getDrawingCache());
+						Toast.makeText(PhotoActivity.this, "Success! New wallpaper set", Toast.LENGTH_SHORT).show();
+					} catch (IOException e) {
+						Toast.makeText(PhotoActivity.this, "Hmm ... something went wrong", Toast.LENGTH_SHORT).show();
+						e.printStackTrace();
+					}
+				} else if (pos == 1) {
+					//save to gallery
+					MediaStore.Images.Media.insertImage(getContentResolver(), currentImageView.getDrawingCache(), 
+							"Asian Hots Pro", "Saved from Asian Hots Pro on " + new Date().toLocaleString());
+					Toast.makeText(PhotoActivity.this, "Success! Image downloaded to your photo gallery", Toast.LENGTH_SHORT).show();
+				} else if (pos == 2) {
+					Toast.makeText(PhotoActivity.this, descriptions[currentPosition], Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 	}
@@ -142,20 +155,16 @@ public class PhotoActivity extends BaseActivity {
 			final View imageLayout = inflater.inflate(R.layout.item_pager_image, null);
 			final ImageView imageView = (ImageView) imageLayout.findViewById(R.id.image);
 			final ProgressBar spinner = (ProgressBar) imageLayout.findViewById(R.id.loading);
-			
+
 			imageView.setLongClickable(true);
 			imageView.setOnLongClickListener(new OnLongClickListener() {
 				@Override
 				public boolean onLongClick(View v) {
-					System.out.println("LONG CLICK " + currentPosition);
-					Toast.makeText(PhotoActivity.this, "long click " + currentPosition, Toast.LENGTH_SHORT).show();
-					
 					quickAction.show(v);
 					quickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
 					return true;
 				}
 			});
-
 
 			imageLoader.displayImage(urls[position].replaceFirst("thumbnail", "upload"),
 					imageView, options, new SimpleImageLoadingListener () {
@@ -190,6 +199,9 @@ public class PhotoActivity extends BaseActivity {
 				}
 			});
 			((ViewPager) view).addView(imageLayout, 0);
+			
+			if (position == currentPosition)
+				currentImageView = imageView;
 
 			return imageLayout;
 		}
