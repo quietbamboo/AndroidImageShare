@@ -3,11 +3,12 @@
     package="com.daidaimobile.ais"
     android:versionCode="3"
     android:versionName="1.2" >
-
-    <uses-sdk
-        android:minSdkVersion="4"
-        android:targetSdkVersion="4" />
-
+   
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="16" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -45,11 +46,17 @@
             android:label="Login to your Account" >
         </activity>
 
-        <!-- Entry for RegisterActivity.class -->
         <activity
             android:name=".RegisterActivity"
             android:label="Register New Account" >
         </activity>
+        
+        <!-- Base Activities Required by Socialize -->
+        <activity android:name="com.socialize.ui.comment.CommentActivity" android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name="com.socialize.ui.action.ActionDetailActivity"/>
+        <activity android:name="com.socialize.ui.profile.ProfileActivity"/>
+        <activity android:name="com.socialize.auth.facebook.FacebookActivity"/>
+        <activity android:name="com.socialize.ui.SocializeLaunchActivity" android:noHistory="true"/>
 
         <!-- Widget -->
         <receiver android:name=".widget.UILWidgetProvider" >
